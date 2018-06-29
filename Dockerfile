@@ -19,6 +19,7 @@ RUN [ "cross-build-start" ]
 # Install system utils & Gogs runtime dependencies
 ADD https://github.com/tianon/gosu/releases/download/1.9/gosu-arm64 /usr/sbin/gosu
 RUN chmod +x /usr/sbin/gosu \
+  && echo http://dl-2.alpinelinux.org/alpine/edge/community/ >> /etc/apk/repositories \
   && apk --no-cache --no-progress add \
     bash \
     ca-certificates \
@@ -27,9 +28,9 @@ RUN chmod +x /usr/sbin/gosu \
     linux-pam \
     openssh \
     s6 \
+    shadow \
     socat \
-    tzdata \
-    go
+    tzdata
 
 # Configure LibC Name Service
 COPY docker/nsswitch.conf /etc/nsswitch.conf
